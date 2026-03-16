@@ -60,7 +60,7 @@ if "estado_viral" not in st.session_state:
 
 
 # =====================================================
-# FUNCIONES AUXILIARES
+# FUNCIONES
 # =====================================================
 
 def obtener_tumores_disponibles():
@@ -192,7 +192,7 @@ if st.session_state["pantalla"] == "inicio":
 )
 
 # =====================================================
-# PANTALLA 2 — TNM (contenido centrado, más estrecho)
+# PANTALLA 2 — TNM 
 # =====================================================
 if st.session_state["pantalla"] == "tnm":
 
@@ -271,7 +271,7 @@ if st.session_state["pantalla"] == "tnm":
         explicaciones = {}
 
         # -------------------------------------------------
-        # BIOMARCADORES (si existen en el Excel)
+        # BIOMARCADORES
         # -------------------------------------------------
 
         biomarcadores = unique_list(df_rules["Biomarcador"].tolist())
