@@ -7,7 +7,7 @@ import pandas as pd
 # =====================================================
 TUMORES_PATH = "tumores"
 
-st.set_page_config(page_title="Clasificación TNM ", page_icon="imagenes/logo.png", layout="wide")
+st.set_page_config(page_title="Clasificación TNM ", page_icon="imagenes/logo_app.png", layout="wide")
 
 main_container = st.empty()
 
@@ -18,7 +18,7 @@ main_container = st.empty()
 col1, col2, col3 = st.sidebar.columns([1,4,1])
 
 with col2:
-    st.image("imagenes/logo.png", use_container_width=True)
+    st.image("imagenes/logo_app.png", use_container_width=True)
 
 st.sidebar.title("Menú")
 
