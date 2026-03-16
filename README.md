@@ -14,5 +14,5 @@ Este proyecto presenta una **aplicación interactiva** desarrollada con Streamli
 La aplicación ha sido desarrollada durante las prácticas realizadas en el Servicio de Otorrinolaringología del Hospital Universitario de Burgos (HUBU), con el objetivo de facilitar el proceso de estadificación, reducir posibles errores y contradicciones así como mejorar la accesibilidad a los criterios de clasificación.
 
 ---
-**Aplicación: https**://clasificadortnm-cabezacuello.streamlit.app/
+**Aplicación**: https://clasificadortnm-cabezacuello.streamlit.app/
 
