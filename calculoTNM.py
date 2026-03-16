@@ -63,6 +63,9 @@ if "estado_viral" not in st.session_state:
 # FUNCIONES
 # =====================================================
 
+import re
+
+@st.cache_data
 def obtener_tumores_disponibles():
     if not os.path.exists(TUMORES_PATH):
         return {}
@@ -72,9 +75,20 @@ def obtener_tumores_disponibles():
         if f.endswith(".xlsx")
     ]
 
+    # ordenar por número inicial
+    archivos = sorted(
+        archivos,
+        key=lambda x: int(re.match(r"(\d+)", x).group()) if re.match(r"(\d+)", x) else 999
+    )
+
     tumores = {}
+
     for archivo in archivos:
-        nombre_visible = os.path.splitext(archivo)[0]
+        nombre_sin_ext = os.path.splitext(archivo)[0]
+
+        # quitar "1. ", "2. ", etc
+        nombre_visible = re.sub(r"^\d+\.\s*", "", nombre_sin_ext)
+
         tumores[nombre_visible] = archivo
 
     return tumores
