@@ -12,3 +12,7 @@ La clasificación **TNM (Tumor, Node, Metastasis)** constituye el sistema están
 Este proyecto presenta una **aplicación interactiva** desarrollada con Streamlit que permite realizar de forma automatizada la **clasificación TNM y la estadificación de tumores** de cabeza y cuello según la 8ª edición del *American Joint Committee on Cancer* AJCC. La herramienta guía al usuario a través de una serie de parámetros clínicos relevantes y genera automáticamente la categoría T, N y M, así como el estadio final del tumor.
 
 La aplicación ha sido desarrollada durante las prácticas realizadas en el Servicio de Otorrinolaringología del Hospital Universitario de Burgos (HUBU), con el objetivo de facilitar el proceso de estadificación, reducir posibles errores y contradicciones así como mejorar la accesibilidad a los criterios de clasificación.
+
+---
+**Aplicación: https**://clasificadortnm-cabezacuello.streamlit.app/
+
