@@ -40,6 +40,15 @@ st.sidebar.markdown("<br><br>", unsafe_allow_html=True)
 st.sidebar.markdown("<br><br>", unsafe_allow_html=True)
 st.sidebar.markdown("<br><br>", unsafe_allow_html=True)
 
+st.sidebar.markdown(
+    """
+    <div style="text-align:center; font-size:12px; color:#9e9e9e; margin-top:40px;">
+    Iván Mamolar | Ingeniería de la salud <br> © 2026
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
 # Logo HUBU
 st.sidebar.image(
     "imagenes/logo_hubu.png",
