@@ -37,8 +37,7 @@ st.sidebar.markdown(
 )
 
 st.sidebar.markdown("<br><br>", unsafe_allow_html=True)
-st.sidebar.markdown("<br><br>", unsafe_allow_html=True)
-st.sidebar.markdown("<br><br>", unsafe_allow_html=True)
+
 
 # Logo HUBU
 st.sidebar.image(
