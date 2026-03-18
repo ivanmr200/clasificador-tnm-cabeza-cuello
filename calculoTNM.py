@@ -40,6 +40,12 @@ st.sidebar.markdown("<br><br>", unsafe_allow_html=True)
 st.sidebar.markdown("<br><br>", unsafe_allow_html=True)
 st.sidebar.markdown("<br><br>", unsafe_allow_html=True)
 
+# Logo HUBU
+st.sidebar.image(
+    "imagenes/logo_hubu.png",
+    width=240
+)
+
 st.sidebar.markdown(
     """
     <div style="text-align:center; font-size:12px; color:#9e9e9e; margin-top:40px;">
@@ -48,13 +54,6 @@ st.sidebar.markdown(
     """,
     unsafe_allow_html=True
 )
-
-# Logo HUBU
-st.sidebar.image(
-    "imagenes/logo_hubu.png",
-    width=240
-)
-
 # =====================================================
 # ESTADO DE PANTALLA
 # =====================================================
