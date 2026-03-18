@@ -299,40 +299,18 @@ if st.session_state["pantalla"] == "tnm":
 
         if biomarcadores:
 
-            biomarcadores_ = ["VPH+", "VPH-", "p16+", "p16-", "Negativo"]
+            st.subheader("Biomarcador")
 
-            seleccion = st.multiselect(
-                "Seleccione biomarcadores:",
-                biomarcadores_,
-                default=[]
+            biomarcador_seleccionado = st.radio(
+                "Seleccione biomarcador:",
+                biomarcadores,
+                horizontal=True,
+                key="biomarcador"
             )
-            
-            def decidir_biomarcador(seleccion):
-                if not seleccion:
-                    return None
 
-                # Prioridad VPH
-                if "VPH+" in seleccion:
-                    return "VPH+"
-                if "VPH-" in seleccion:
-                    return "VPH-"
-
-                # Si no hay VPH → usar p16
-                if "p16+" in seleccion and "p16-" in seleccion:
-                    return "Negativo"  # conflicto → negativo
-                if "p16+" in seleccion:
-                    return "p16+"
-                if "p16-" in seleccion:
-                    return "p16-"
-
-                return None
-            
-            biomarcador_final = decidir_biomarcador(seleccion)
-
-            if biomarcador_final:
-                df_rules = df_rules[
-                    df_rules["Biomarcador"] == biomarcador_final
-                ]
+            df_rules = df_rules[
+                df_rules["Biomarcador"] == biomarcador_seleccionado
+            ]
 
         # -------------------------------------------------
         # INTERFAZ TNM
