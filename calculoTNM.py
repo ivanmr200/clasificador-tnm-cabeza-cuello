@@ -276,16 +276,7 @@ if st.session_state["pantalla"] == "tnm":
                 st.error(f"Error cargando archivo: {e}")
                 st.stop()
 
-        # -------------------------------------------------
-        # CARGAR EXCEL
-        # -------------------------------------------------
-        try:
-            with st.spinner("Cargando datos ..."):
-                df_rules = load_excel(EXCEL_PATH, "TNM")
-                df_estadios = load_excel(EXCEL_PATH, "Estadios")
-        except Exception as e:
-            st.error(f"Error cargando archivo: {e}")
-            st.stop()
+        
 
         categorias_disponibles = ["T", "N", "M"]
         valores_TNM = {}
