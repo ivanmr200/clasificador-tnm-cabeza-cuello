@@ -48,7 +48,7 @@ st.sidebar.image(
 st.sidebar.markdown(
     """
     <div style="text-align:center; font-size:12px; color:#9e9e9e; margin-top:40px;">
-    Iván Mamolar | Ingeniería de la salud <br> Servicio Otorrinolaringología HUBU <br>© 2026
+     Servicio Otorrinolaringología HUBU <br> Iván Mamolar | Ingeniería de la salud <br>© 2026
     </div>
     """,
     unsafe_allow_html=True
