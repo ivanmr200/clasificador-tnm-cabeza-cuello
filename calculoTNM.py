@@ -301,7 +301,7 @@ if st.session_state["pantalla"] == "tnm":
 
             st.subheader("Biomarcador")
 
-            biomarcador_seleccionado = st.radio(
+            biomarcador_seleccionado = st.multiselect(
                 "Seleccione biomarcador:",
                 biomarcadores,
                 horizontal=True,
