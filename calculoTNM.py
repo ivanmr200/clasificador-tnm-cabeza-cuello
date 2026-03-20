@@ -27,6 +27,13 @@ if st.sidebar.button("Inicio", use_container_width=True):
     st.session_state["pantalla"] = "inicio"
     st.session_state["tumor_seleccionado"] = None
     st.session_state["estado_viral"] = None
+    st.session_state["biomarcador_usuario"] = None
+    
+    # Resetear todas las casillas de biomarcadores
+    for key in list(st.session_state.keys()):
+        if key.startswith("chk_"):
+            del st.session_state[key]
+            
     st.rerun()
 
 # Nombre del cáncer seleccionado
@@ -251,6 +258,13 @@ if st.session_state["pantalla"] == "tnm":
             st.session_state["pantalla"] = "inicio"
             st.session_state["tumor_seleccionado"] = None
             st.session_state["estado_viral"] = None
+            st.session_state["biomarcador_usuario"] = None
+    
+            # Resetear todas las casillas de biomarcadores
+            for key in list(st.session_state.keys()):
+                if key.startswith("chk_"):
+                    del st.session_state[key]
+            
             st.rerun()
 
         st.markdown(
@@ -524,13 +538,8 @@ if st.session_state["pantalla"] == "tnm":
             elif "p16-" in tumor_nombre:
                 biomarcador_archivo = "p16-"
 
-            biomarcador_radio = st.session_state.get("biomarcador", None)
-
-
-            if biomarcador_radio and biomarcador_radio != "Ninguno":
-                st.success(f"Estadio ({biomarcador_radio}): {estadio}")
-
-            elif biomarcador_archivo:
+            
+            if biomarcador_archivo:
                 st.success(f"Estadio ({biomarcador_archivo}): {estadio}")
 
             else:
