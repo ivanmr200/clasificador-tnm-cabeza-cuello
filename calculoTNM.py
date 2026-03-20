@@ -29,6 +29,28 @@ if st.sidebar.button("Inicio", use_container_width=True):
     st.session_state["estado_viral"] = None
     st.rerun()
 
+# Nombre del cáncer seleccionado
+if st.session_state.get("tumor_seleccionado"):
+    st.sidebar.markdown(
+        f"""
+        <div style="
+            background-color: #FFC5D3;
+            border-left: 4px solid #99606E;
+            border-radius: 6px;
+            padding: 10px 12px;
+            margin-top: 8px;
+            margin-bottom: 4px;
+        ">
+            <div style="font-size:10px; color:#000000; text-transform:uppercase; letter-spacing:1px; margin-bottom:4px;">
+                Tumor seleccionado
+            </div>
+            <div style="font-size:13px; color:#662C39; font-weight:600; line-height:1.3;">
+                {st.session_state["tumor_seleccionado"]}
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 # Mas info
 
 st.sidebar.markdown(
