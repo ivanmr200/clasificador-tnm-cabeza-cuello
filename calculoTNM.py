@@ -449,22 +449,27 @@ if st.session_state["pantalla"] == "tnm":
         estado_viral = st.session_state.get("estado_viral", None)
 
         # -------------------------
-        # ENCABEZADO (UNA SOLA VEZ)
+        # PREFIJO (una sola vez)
         # -------------------------
         if estado_viral:
-            st.info(f"{tumor_nombre} ({estado_viral})")
+            prefijo = f"{tumor_nombre} ({estado_viral}): "
         else:
-            st.info(f"{tumor_nombre}")
+            prefijo = f"{tumor_nombre}: "
 
         # -------------------------
-        # DETALLE TNM (SIN REPETIR)
+        # TNM + EXPLICACIONES
         # -------------------------
-        resultado_explicado = " ".join(
+        detalle_tnm = " ".join(
             [f"{valores_TNM.get(k,'')} ({explicaciones.get(k,'')})"
             for k in categorias_disponibles]
         )
 
-        st.info(resultado_explicado)
+        # -------------------------
+        # RESULTADO FINAL EN UNA LÍNEA
+        # -------------------------
+        resultado_final = prefijo + detalle_tnm
+
+        st.info(resultado_final)
 
         # -------------------------------------------------
         # ESTADIO FINAL
