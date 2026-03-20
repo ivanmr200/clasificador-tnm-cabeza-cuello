@@ -316,20 +316,6 @@ if st.session_state["pantalla"] == "tnm":
                 st.error(f"Error cargando archivo: {e}")
                 st.stop()
 
-            st.subheader("Biomarcador")
-
-            biomarcadores = unique_list(df_rules["Biomarcador"].tolist())
-
-            cols = st.columns(3)
-
-            for i, biom in enumerate(biomarcadores):
-                with cols[i % 3]:
-                    if st.button(biom, use_container_width=True):
-                        st.session_state["estado_viral"] = biom
-
-            if st.session_state["estado_viral"]:
-                df_rules = df_rules[df_rules["Biomarcador"] == st.session_state["estado_viral"]]
-
         else:
 
             EXCEL_PATH = os.path.join(TUMORES_PATH, archivo_excel)
@@ -348,27 +334,46 @@ if st.session_state["pantalla"] == "tnm":
         valores_TNM = {}
         explicaciones = {}
 
-        # -------------------------------------------------
+                # -------------------------------------------------
         # BIOMARCADORES
         # -------------------------------------------------
 
         biomarcadores = unique_list(df_rules["Biomarcador"].tolist())
 
-        if biomarcadores:
-
+        if biomarcadores and biomarcadores != "Ninguno":
+            
             st.subheader("Biomarcador")
 
-            biomarcador_seleccionado = st.radio(
-                "Seleccione biomarcador:",
-                biomarcadores,
-                horizontal=True,
-                key="biomarcador"
-            )
+            seleccion = []
 
-            df_rules = df_rules[
-                df_rules["Biomarcador"] == biomarcador_seleccionado
-            ]
+            cols = st.columns(4)  # 4 columnas para los 4 biomarcadores
 
+            for i, biom in enumerate(biomarcadores):
+                with cols[i % 4]:
+                    if st.checkbox(biom, key=f"chk_{biom}"):
+                        seleccion.append(biom)
+
+            clasificacion_final = None
+
+            if seleccion:
+
+                # PRIORIDAD: VPH manda sobre p16
+                if "VPH+" in seleccion:
+                    clasificacion_final = "p16+"
+
+                elif "VPH-" in seleccion:
+                    clasificacion_final = "p16-"
+
+                # si no hay VPH → usar p16
+                elif "p16+" in seleccion:
+                    clasificacion_final = "p16+"
+
+                elif "p16-" in seleccion:
+                    clasificacion_final = "p16-"
+
+            # Filtrar reglas TNM según la clasificación final
+            if clasificacion_final:
+                df_rules = df_rules[df_rules["Biomarcador"] == clasificacion_final]
         # -------------------------------------------------
         # INTERFAZ TNM
         # -------------------------------------------------
