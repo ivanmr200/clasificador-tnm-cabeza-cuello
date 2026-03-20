@@ -247,6 +247,41 @@ if st.session_state["pantalla"] == "tnm":
         tumor_nombre = st.session_state["tumor_seleccionado"]
         st.header(tumor_nombre)
 
+        # -------------------------------------------------
+        # ESTADO VIRAL (RADIO)
+        # -------------------------------------------------
+        estado_viral = None
+
+        # NASOFARINGE → VEB
+        if "nasofaringe" in tumor_nombre.lower():
+
+            st.markdown("#### Estado viral")
+
+            estado_viral = st.radio(
+                "Seleccione estado:",
+                ["VEB+", "VEB-"],
+                horizontal=True,
+                key="estado_viral_radio"
+            )
+
+        # OROFARINGE → VPH (solo si es p16+ o p16-)
+        elif "orofaringe" in tumor_nombre.lower():
+
+            if "p16+" in tumor_nombre.lower() or "p16-" in tumor_nombre.lower():
+
+                st.markdown("#### Estado viral")
+
+                estado_viral = st.radio(
+                    "Seleccione estado:",
+                    ["VPH+", "VPH-"],
+                    horizontal=True,
+                    key="estado_viral_radio"
+                )
+
+        # Guardar en session_state
+        if estado_viral:
+            st.session_state["estado_viral"] = estado_viral
+
         if st.button("← Volver"):
             st.session_state["pantalla"] = "inicio"
             st.session_state["tumor_seleccionado"] = None
