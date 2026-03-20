@@ -447,7 +447,7 @@ if st.session_state["pantalla"] == "tnm":
         st.success(resultado_simple)
 
         resultado_explicado = " ".join(
-            [f"{valores_TNM.get(k,'')} ({explicaciones.get(k,'')})"
+            [f"{tumor_nombre}: {valores_TNM.get(k,'')} ({explicaciones.get(k,'')})"
             for k in categorias_disponibles]
         )
 
