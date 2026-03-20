@@ -474,11 +474,16 @@ if st.session_state["pantalla"] == "tnm":
 
             biomarcador_radio = st.session_state.get("biomarcador", None)
 
-            if biomarcador_radio and biomarcador_radio != "Ninguno":
-                st.success(f"Estadio ({biomarcador_radio}): {estadio} ")
+            estado_viral = st.session_state.get("estado_viral", None)
+
+            if estado_viral:
+                st.success(f"Estadio ({estado_viral}): {estadio}")
+
+            elif biomarcador_radio and biomarcador_radio != "Ninguno":
+                st.success(f"Estadio ({biomarcador_radio}): {estadio}")
 
             elif biomarcador_archivo:
-                st.success(f"Estadio ({biomarcador_archivo}): {estadio} ")
+                st.success(f"Estadio ({biomarcador_archivo}): {estadio}")
 
             else:
                 st.success(f"Estadio: {estadio}")
