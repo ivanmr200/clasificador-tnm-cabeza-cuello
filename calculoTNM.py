@@ -334,7 +334,7 @@ if st.session_state["pantalla"] == "tnm":
         valores_TNM = {}
         explicaciones = {}
 
-                # -------------------------------------------------
+        # -------------------------------------------------
         # BIOMARCADORES
         # -------------------------------------------------
 
@@ -343,37 +343,56 @@ if st.session_state["pantalla"] == "tnm":
         if biomarcadores and biomarcadores != "Ninguno":
             
             st.subheader("Biomarcador")
-
+ 
             seleccion = []
 
-            cols = st.columns(4)  # 4 columnas para los 4 biomarcadores
+            # Primera pasada: leer el estado actual de los checkboxes
+            estado = {}
+            for biom in biomarcadores:
+                estado[biom] = st.session_state.get(f"chk_{biom}", False)
 
+            # Calcular qué debe estar deshabilitado
+            tiene_vph = any("VPH" in b for b, v in estado.items() if v)
+            tiene_p16 = any("p16" in b for b, v in estado.items() if v)
+
+            # Segunda pasada: renderizar con disabled correcto
+            cols = st.columns(len(biomarcadores))
             for i, biom in enumerate(biomarcadores):
-                with cols[i % 4]:
-                    if st.checkbox(biom, key=f"chk_{biom}"):
+                with cols[i]:
+                    deshabilitado = (
+                        ("VPH" in biom and tiene_vph and not estado[biom]) or
+                        ("p16" in biom and tiene_p16 and not estado[biom])
+                    )
+                    if st.checkbox(biom, key=f"chk_{biom}", disabled=deshabilitado):
                         seleccion.append(biom)
 
             clasificacion_final = None
 
             if seleccion:
-
-                # PRIORIDAD: VPH manda sobre p16
+                # VPH tiene prioridad absoluta sobre p16
                 if "VPH+" in seleccion:
                     clasificacion_final = "p16+"
-
                 elif "VPH-" in seleccion:
                     clasificacion_final = "p16-"
-
-                # si no hay VPH → usar p16
+                # Sin VPH -> usar p16 directamente
                 elif "p16+" in seleccion:
                     clasificacion_final = "p16+"
-
                 elif "p16-" in seleccion:
                     clasificacion_final = "p16-"
+                # Cualquier otro biomarcador unico (sin logica VPH/p16)
+                else:
+                    clasificacion_final = seleccion[0]
 
-            # Filtrar reglas TNM según la clasificación final
-            if clasificacion_final:
-                df_rules = df_rules[df_rules["Biomarcador"] == clasificacion_final]
+            if not clasificacion_final:
+                st.info("Seleccione al menos un biomarcador para continuar.")
+                st.stop()
+
+            # Guardar para el informe final
+            etiqueta_seleccion = " / ".join(seleccion)
+            st.session_state["biomarcador"] = etiqueta_seleccion
+
+            df_rules = df_rules[df_rules["Biomarcador"] == clasificacion_final]
+
         # -------------------------------------------------
         # INTERFAZ TNM
         # -------------------------------------------------
