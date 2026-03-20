@@ -51,6 +51,8 @@ if st.session_state.get("tumor_seleccionado"):
         """,
         unsafe_allow_html=True
     )
+
+st.sidebar.markdown("<br><br>", unsafe_allow_html=True)
 # Mas info
 
 st.sidebar.markdown(
@@ -58,7 +60,7 @@ st.sidebar.markdown(
     unsafe_allow_html=True
 )
 
-st.sidebar.markdown("<br><br>", unsafe_allow_html=True)
+
 
 # Logo HUBU
 st.sidebar.image(
