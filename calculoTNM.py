@@ -354,6 +354,7 @@ if st.session_state["pantalla"] == "tnm":
             # Calcular qué debe estar deshabilitado
             tiene_vph = any("VPH" in b for b, v in estado.items() if v)
             tiene_p16 = any("p16" in b for b, v in estado.items() if v)
+            total_marcados = sum(1 for v in estado.values() if v)
 
             # Segunda pasada: renderizar con disabled correcto
             cols = st.columns(len(biomarcadores))
@@ -361,7 +362,8 @@ if st.session_state["pantalla"] == "tnm":
                 with cols[i]:
                     deshabilitado = (
                         ("VPH" in biom and tiene_vph and not estado[biom]) or
-                        ("p16" in biom and tiene_p16 and not estado[biom])
+                        ("p16" in biom and tiene_p16 and not estado[biom]) or
+                        (total_marcados >= 2 and not estado[biom])
                     )
                     if st.checkbox(biom, key=f"chk_{biom}", disabled=deshabilitado):
                         seleccion.append(biom)
