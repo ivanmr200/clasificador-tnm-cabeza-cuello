@@ -447,12 +447,17 @@ if st.session_state["pantalla"] == "tnm":
         st.success(resultado_simple)
 
         estado_viral = st.session_state.get("estado_viral", None)
+        biomarcador_radio = st.session_state.get("biomarcador", None)
 
         # -------------------------
         # PREFIJO (una sola vez)
         # -------------------------
         if estado_viral:
             prefijo = f"{tumor_nombre} ({estado_viral}): "
+
+        elif biomarcador_radio:
+            prefijo = f"{tumor_nombre} ({biomarcador_radio}): "
+        
         else:
             prefijo = f"{tumor_nombre}: "
 
