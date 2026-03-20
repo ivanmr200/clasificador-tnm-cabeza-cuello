@@ -477,18 +477,18 @@ if st.session_state["pantalla"] == "tnm":
 
         estado_viral = st.session_state.get("estado_viral", None)
         biomarcador_radio = st.session_state.get("biomarcador", None)
-
         # -------------------------
         # PREFIJO (una sola vez)
         # -------------------------
-        if estado_viral:
-            prefijo = f"{tumor_nombre} ({estado_viral}): "
+        estado_viral = st.session_state.get("estado_viral", None)
+        biomarcador_usuario = st.session_state.get("biomarcador_usuario", None)
 
-        elif biomarcador_radio and biomarcador_radio != "Ninguno":
-            prefijo = f"{tumor_nombre} ({biomarcador_radio}): "
-        
+        if estado_viral:
+            prefijo = f"{tumor_nombre} ({estado_viral})"
+        elif biomarcador_usuario:
+            prefijo = f"{tumor_nombre} ({biomarcador_usuario})"
         else:
-            prefijo = f"{tumor_nombre}: "
+            prefijo = tumor_nombre  # solo el nombre del tumor si no hay selección
 
         # -------------------------
         # TNM + EXPLICACIONES
@@ -501,7 +501,7 @@ if st.session_state["pantalla"] == "tnm":
         # -------------------------
         # RESULTADO FINAL EN UNA LÍNEA
         # -------------------------
-        resultado_final = prefijo + detalle_tnm
+        resultado_final = f"{prefijo}: {detalle_tnm}" if detalle_tnm.strip() else prefijo
 
         st.info(resultado_final)
 
