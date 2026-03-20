@@ -405,7 +405,7 @@ if st.session_state["pantalla"] == "tnm":
 
             # Guardar para el informe final
             etiqueta_seleccion = " / ".join(seleccion)
-            st.session_state["biomarcador"] = etiqueta_seleccion
+            st.session_state["biomarcador_usuario"] = etiqueta_seleccion
 
             df_rules = df_rules[df_rules["Biomarcador"] == clasificacion_final]
 
