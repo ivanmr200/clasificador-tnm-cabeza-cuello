@@ -455,7 +455,7 @@ if st.session_state["pantalla"] == "tnm":
         if estado_viral:
             prefijo = f"{tumor_nombre} ({estado_viral}): "
 
-        elif biomarcador_radio:
+        elif biomarcador_radio and biomarcador_radio != "Ninguno":
             prefijo = f"{tumor_nombre} ({biomarcador_radio}): "
         
         else:
