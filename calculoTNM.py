@@ -342,7 +342,7 @@ if st.session_state["pantalla"] == "tnm":
 
         if biomarcadores and biomarcadores != "Ninguno":
             
-            st.subheader("Biomarcador")
+            st.markdown("#### Biomarcador")
  
             seleccion = []
 
