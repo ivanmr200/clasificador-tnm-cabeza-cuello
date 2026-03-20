@@ -247,6 +247,18 @@ if st.session_state["pantalla"] == "tnm":
         tumor_nombre = st.session_state["tumor_seleccionado"]
         st.header(tumor_nombre)
 
+        if st.button("← Volver"):
+            st.session_state["pantalla"] = "inicio"
+            st.session_state["tumor_seleccionado"] = None
+            st.session_state["estado_viral"] = None
+            st.rerun()
+
+        st.markdown(
+                    "<p style='color:#9e9e9e; font-size:12px; font-style:italic;'>"
+                    "* →  más detalles disponibles"
+                    "</p>",
+                    unsafe_allow_html=True
+                )
         # -------------------------------------------------
         # ESTADO VIRAL (RADIO)
         # -------------------------------------------------
@@ -282,11 +294,7 @@ if st.session_state["pantalla"] == "tnm":
         if estado_viral:
             st.session_state["estado_viral"] = estado_viral
 
-        if st.button("← Volver"):
-            st.session_state["pantalla"] = "inicio"
-            st.session_state["tumor_seleccionado"] = None
-            st.session_state["estado_viral"] = None
-            st.rerun()
+
 
         tumores_dict = obtener_tumores_disponibles()
 
@@ -364,12 +372,7 @@ if st.session_state["pantalla"] == "tnm":
         # -------------------------------------------------
         # INTERFAZ TNM
         # -------------------------------------------------
-        st.markdown(
-                    "<p style='color:#9e9e9e; font-size:12px; font-style:italic;'>"
-                    "* →  más detalles disponibles"
-                    "</p>",
-                    unsafe_allow_html=True
-                )
+
         
         for cat in categorias_disponibles:
 
