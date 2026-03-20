@@ -446,10 +446,19 @@ if st.session_state["pantalla"] == "tnm":
 
         st.success(resultado_simple)
 
-        resultado_explicado = " ".join(
-            [f"{tumor_nombre}: {valores_TNM.get(k,'')} ({explicaciones.get(k,'')})"
+        estado_viral = st.session_state.get("estado_viral", None)
+
+        if estado_viral:
+             resultado_explicado = " ".join(
+            [f"{tumor_nombre} ({estado_viral}): {valores_TNM.get(k,'')} ({explicaciones.get(k,'')})"
             for k in categorias_disponibles]
         )
+             
+        else:
+            resultado_explicado = " ".join(
+                [f"{tumor_nombre}: {valores_TNM.get(k,'')} ({explicaciones.get(k,'')})"
+                for k in categorias_disponibles]
+            )
 
         st.info(resultado_explicado)
 
@@ -474,12 +483,8 @@ if st.session_state["pantalla"] == "tnm":
 
             biomarcador_radio = st.session_state.get("biomarcador", None)
 
-            estado_viral = st.session_state.get("estado_viral", None)
 
-            if estado_viral:
-                st.success(f"Estadio ({estado_viral}): {estadio}")
-
-            elif biomarcador_radio and biomarcador_radio != "Ninguno":
+            if biomarcador_radio and biomarcador_radio != "Ninguno":
                 st.success(f"Estadio ({biomarcador_radio}): {estadio}")
 
             elif biomarcador_archivo:
