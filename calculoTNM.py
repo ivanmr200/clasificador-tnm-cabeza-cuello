@@ -169,6 +169,7 @@ if st.session_state["pantalla"] == "inicio":
         if os.path.exists(imagen_path):
             st.image(imagen_path, use_container_width=True)
 
+    st.sidebar.markdown("<br><br>", unsafe_allow_html=True)
     st.markdown(
         """<div style="text-align:center; font-size:11px; color:#9e9e9e; margin-top:40px;">
         Basado en:<br> American Joint Committee on Cancer (AJCC). AJCC Cancer Staging Manual. 8th edition. <br>
