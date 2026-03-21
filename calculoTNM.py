@@ -8,7 +8,7 @@ import pandas as pd
 # =====================================================
 TUMORES_PATH = "tumores"
 
-st.set_page_config(page_title="Clasificación TNM", page_icon="imagenes/logo_app.png", layout="wide")
+st.set_page_config(page_title="TNM — cabeza y cuello", page_icon="imagenes/logo_app.png", layout="wide")
 
 
 # =====================================================
