@@ -110,6 +110,7 @@ st.sidebar.markdown(
     '🔗 <a href="https://www.cancer.gov/espanol/tipos/cabeza-cuello/pro/adulto" target="_blank">Más info</a>',
     unsafe_allow_html=True
 )
+st.sidebar.markdown("<br><br>", unsafe_allow_html=True)
 st.sidebar.image("imagenes/logo_hubu.png", width=220)
 st.sidebar.markdown(
     """<div style="text-align:center; font-size:11px; color:#9e9e9e;">
