@@ -231,6 +231,23 @@ if st.session_state["pantalla"] == "tnm":
         categorias_disponibles = ["T", "N", "M"]
         pasos_orden = ["T", "N", "M"]
 
+        # ------------------------------------------------------
+        # Casos VPH+/- en orofaringe
+        #-------------------------------------------------------
+        tumor_base = tumor_nombre
+
+        if "orofaringe" in tumor_nombre.lower():
+            if "p16+" in tumor_nombre.lower() and st.session_state.get("estado_viral") == "VPH-":
+                # Cambiar a p16-
+                tumor_base = tumor_nombre.lower().replace("p16+", "p16-")
+                tumor_base = next((k for k in tumores_dict if k.lower() == tumor_base), tumor_nombre)
+
+            elif "p16-" in tumor_nombre.lower() and st.session_state.get("estado_viral") == "VPH+":
+                # (opcional) el caso inverso
+                tumor_base = tumor_nombre.lower().replace("p16-", "p16+")
+                tumor_base = next((k for k in tumores_dict if k.lower() == tumor_base), tumor_nombre)
+
+        archivo_excel = tumores_dict[tumor_base]
         # -------------------------------------------------
         # BIOMARCADORES
         # -------------------------------------------------
@@ -300,6 +317,8 @@ if st.session_state["pantalla"] == "tnm":
                 st.markdown(f"<div style='{estilo}'>{label}</div>", unsafe_allow_html=True)
 
         st.markdown("<br>", unsafe_allow_html=True)
+
+
 
         # -------------------------------------------------
         # FLUJO TNM PASO A PASO
