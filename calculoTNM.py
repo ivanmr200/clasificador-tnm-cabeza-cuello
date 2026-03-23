@@ -361,7 +361,7 @@ if st.session_state["pantalla"] == "tnm":
                     if localizaciones:
                         loc = st.selectbox("Localización tumoral:", localizaciones, key="localizacion_T")
                         df_cat = df_cat[df_cat["Localizacion"] == loc]
-                        prefijo = f"{tumor_nombre} ({loc})"
+                        st.session_state["localizacion_T_sel"] = loc
 
                 # Tipo (solo N)
                 if cat == "N":
@@ -495,12 +495,21 @@ if st.session_state["pantalla"] == "tnm":
             estado_viral = st.session_state.get("estado_viral")
             biomarcador_usuario = st.session_state.get("biomarcador_usuario")
 
-            if estado_viral:
-                prefijo = f"{tumor_nombre} ({estado_viral})"
-            elif biomarcador_usuario:
-                prefijo = f"{tumor_nombre} ({biomarcador_usuario})"
+            localizacion = st.session_state.get("localizacion_T_sel")
+
+            # Construcción del nombre base con localización
+            if localizacion:
+                nombre_con_loc = f"{tumor_nombre} ({localizacion})"
             else:
-                prefijo = tumor_nombre
+                nombre_con_loc = tumor_nombre
+
+            # Añadir biomarcadores/estado viral
+            if estado_viral:
+                prefijo = f"{nombre_con_loc} ({estado_viral})"
+            elif biomarcador_usuario:
+                prefijo = f"{nombre_con_loc} ({biomarcador_usuario})"
+            else:
+                prefijo = nombre_con_loc
 
             resultado_simple = " ".join(
             [valores_TNM.get(k, "") for k in categorias_disponibles])
