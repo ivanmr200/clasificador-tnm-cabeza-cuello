@@ -94,14 +94,35 @@ if st.sidebar.button("Inicio", use_container_width=True):
     st.session_state["localizacion_T_sel"] = None
     st.rerun()
 
-if st.session_state.get("tumor_seleccionado"):
+tumor = st.session_state.get("tumor_seleccionado")
+
+
+localizacion = None
+if st.session_state.get("pantalla") == "tnm":
+    # Si ya hay valor en el selectbox
+    if "localizacion_T" in st.session_state:
+        localizacion = st.session_state["localizacion_T"]
+        # Guardarlo también en otro key para mantenerlo mientras estemos en TNM
+        st.session_state["localizacion_T_sel"] = localizacion
+    # Si no, usar el valor guardado previamente
+    elif "localizacion_T_sel" in st.session_state:
+        localizacion = st.session_state["localizacion_T_sel"]
+
+# Construir el texto de la sidebar
+if localizacion:
+    texto_tumor = f"{tumor} ({localizacion})"
+else:
+    texto_tumor = tumor
+
+# Mostrar en la sidebar
+if tumor:
     st.sidebar.markdown(
         f"""<div style="background-color:#FFC5D3; border-left:4px solid #99606E;
                         border-radius:6px; padding:10px 12px; margin-top:8px;">
             <div style="font-size:10px; color:#000; text-transform:uppercase;
                         letter-spacing:1px; margin-bottom:4px;">Tumor seleccionado</div>
             <div style="font-size:13px; color:#662C39; font-weight:600;">
-                {st.session_state["tumor_seleccionado"]}</div>
+                {texto_tumor}</div>
         </div>""",
         unsafe_allow_html=True
     )
@@ -187,7 +208,20 @@ if st.session_state["pantalla"] == "tnm":
 
     with col_center:
         tumor_nombre = st.session_state["tumor_seleccionado"]
-        st.header(tumor_nombre)
+
+        # Agregar localización al título si existe
+        localizacion = None
+        if "localizacion_T" in st.session_state:
+            localizacion = st.session_state["localizacion_T"]
+        elif "localizacion_T_sel" in st.session_state:
+            localizacion = st.session_state["localizacion_T_sel"]
+
+        if localizacion:
+            tumor_con_loc = f"{tumor_nombre} ({localizacion})"
+        else:
+            tumor_con_loc = tumor_nombre
+
+        st.header(tumor_con_loc)
 
         if st.button("← Volver"):
             reset_tnm()
@@ -494,10 +528,7 @@ if st.session_state["pantalla"] == "tnm":
         # RESULTADOS FINALES
         # -------------------------------------------------
         else:
-            if st.button("Nueva clasificación TNM"):
-                reset_tnm()
-                st.rerun()
-
+            
             valores_TNM = st.session_state["tnm_selecciones"]
             explicaciones = st.session_state["tnm_explicaciones"]
             items_guardados = st.session_state["tnm_items"]
@@ -511,10 +542,25 @@ if st.session_state["pantalla"] == "tnm":
                     texto = f"{etiqueta}"
                     st.markdown(f"— {texto}")
 
+            col___1, col___2 = st.columns(2)
+
+            with col___1:
+                if st.button("← Volver a categoría M", use_container_width=True):
+                    # Quitar M para salir de pantalla de resultados
+                    st.session_state["tnm_selecciones"].pop("M", None)
+                    
+                    # Ir al paso M
+                    st.session_state["tnm_paso"] = "M"
+                    
+                    st.rerun()
+
+            with col___2:
+                if st.button(f"Nueva clasificación TNM para {tumor_nombre}", use_container_width=True):
+                    reset_tnm()
+                    st.rerun()
+                
             st.divider()
             st.header("Resultados TNM")
-
-
 
             estado_viral = st.session_state.get("estado_viral")
             biomarcador_usuario = st.session_state.get("biomarcador_usuario")
