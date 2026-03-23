@@ -211,7 +211,7 @@ if st.session_state["pantalla"] == "tnm":
             estado_viral = st.radio("Seleccione estado:", ["VPH-", "VPH+"], horizontal=True, key="estado_viral_radio")
         elif "labio y cavidad oral" in tumor_nombre.lower():
             st.markdown("#### Localización tumoral")
-            estado_viral = st.radio("Seleccione estado:", ["Labio", "Cavidad oral"], horizontal=True, key="estado_viral_radio")
+            estado_viral = st.radio("Seleccione localización:", ["Labio", "Cavidad oral"], horizontal=True, key="estado_viral_radio")
         if estado_viral:
             st.session_state["estado_viral"] = estado_viral
 
@@ -361,6 +361,7 @@ if st.session_state["pantalla"] == "tnm":
                     if localizaciones:
                         loc = st.selectbox("Localización tumoral:", localizaciones, key="localizacion_T")
                         df_cat = df_cat[df_cat["Localizacion"] == loc]
+                        prefijo = f"{tumor_nombre} ({loc})"
 
                 # Tipo (solo N)
                 if cat == "N":
