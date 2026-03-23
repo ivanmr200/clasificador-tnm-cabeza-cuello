@@ -239,13 +239,10 @@ if st.session_state["pantalla"] == "tnm":
         if "orofaringe" in tumor_nombre.lower():
             if "p16+" in tumor_nombre.lower() and st.session_state.get("estado_viral") == "VPH-":
                 # Cambiar a p16-
-                tumor_base = tumor_nombre.lower().replace("p16+", "p16-")
-                tumor_base = next((k for k in tumores_dict if k.lower() == tumor_base), tumor_nombre)
-
+                tumor_base = "4. Orofaringe (p16-)"
             elif "p16-" in tumor_nombre.lower() and st.session_state.get("estado_viral") == "VPH+":
                 # (opcional) el caso inverso
-                tumor_base = tumor_nombre.lower().replace("p16-", "p16+")
-                tumor_base = next((k for k in tumores_dict if k.lower() == tumor_base), tumor_nombre)
+                tumor_base = "3. Orofaringe (p16+)"
 
         archivo_excel = tumores_dict[tumor_base]
         # -------------------------------------------------
