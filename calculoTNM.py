@@ -234,17 +234,33 @@ if st.session_state["pantalla"] == "tnm":
         # ------------------------------------------------------
         # Casos VPH+/- en orofaringe
         #-------------------------------------------------------
+        tumores_dict = obtener_tumores_disponibles()
+
         tumor_base = tumor_nombre
 
         if "orofaringe" in tumor_nombre.lower():
-            if "p16+" in tumor_nombre.lower() and st.session_state.get("estado_viral") == "VPH-":
-                # Cambiar a p16-
+            estado = st.session_state.get("estado_viral")
+
+            if "p16+" in tumor_nombre.lower() and estado == "VPH-":
                 tumor_base = "4. Orofaringe (p16-)"
-            elif "p16-" in tumor_nombre.lower() and st.session_state.get("estado_viral") == "VPH+":
-                # (opcional) el caso inverso
+            elif "p16-" in tumor_nombre.lower() and estado == "VPH+":
                 tumor_base = "3. Orofaringe (p16+)"
 
+        # 🔴 IMPORTANTE: comprobar que existe
+        if tumor_base not in tumores_dict:
+            st.error(f"No se encontró el archivo para: {tumor_base}")
+            st.stop()
+
         archivo_excel = tumores_dict[tumor_base]
+
+        excel_path = os.path.join(
+            TUMORES_PATH,
+            "Metástasis cervical de origen desconocido.xlsx" if archivo_excel == "ESPECIAL" else archivo_excel
+        )
+
+        # 🔴 AHORA sí cargamos
+        df_rules = load_excel(excel_path, "TNM")
+        df_estadios = load_excel(excel_path, "Estadios")
         # -------------------------------------------------
         # BIOMARCADORES
         # -------------------------------------------------
