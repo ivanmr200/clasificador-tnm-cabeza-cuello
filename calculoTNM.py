@@ -242,11 +242,10 @@ if st.session_state["pantalla"] == "tnm":
             estado = st.session_state.get("estado_viral")
 
             if "p16+" in tumor_nombre.lower() and estado == "VPH-":
-                tumor_base = "4. Orofaringe (p16-)"
+                tumor_base = "Orofaringe (p16-)"
             elif "p16-" in tumor_nombre.lower() and estado == "VPH+":
-                tumor_base = "3. Orofaringe (p16+)"
+                tumor_base = "Orofaringe (p16+)"
 
-        # 🔴 IMPORTANTE: comprobar que existe
         if tumor_base not in tumores_dict:
             st.error(f"No se encontró el archivo para: {tumor_base}")
             st.stop()
@@ -258,7 +257,6 @@ if st.session_state["pantalla"] == "tnm":
             "Metástasis cervical de origen desconocido.xlsx" if archivo_excel == "ESPECIAL" else archivo_excel
         )
 
-        # 🔴 AHORA sí cargamos
         df_rules = load_excel(excel_path, "TNM")
         df_estadios = load_excel(excel_path, "Estadios")
         # -------------------------------------------------
