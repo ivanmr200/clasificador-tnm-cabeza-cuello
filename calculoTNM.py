@@ -91,6 +91,7 @@ if st.sidebar.button("Inicio", use_container_width=True):
     st.session_state["tumor_seleccionado"] = None
     st.session_state["estado_viral"] = None
     st.session_state["biomarcador_usuario"] = None
+    st.session_state["localizacion_T_sel"] = None
     st.rerun()
 
 if st.session_state.get("tumor_seleccionado"):
@@ -194,6 +195,7 @@ if st.session_state["pantalla"] == "tnm":
             st.session_state["tumor_seleccionado"] = None
             st.session_state["estado_viral"] = None
             st.session_state["biomarcador_usuario"] = None
+            st.session_state["localizacion_T_sel"] = None
             st.rerun()
 
         # -------------------------------------------------
@@ -494,7 +496,6 @@ if st.session_state["pantalla"] == "tnm":
 
             estado_viral = st.session_state.get("estado_viral")
             biomarcador_usuario = st.session_state.get("biomarcador_usuario")
-
             localizacion = st.session_state.get("localizacion_T_sel")
 
             # Construcción del nombre base con localización
