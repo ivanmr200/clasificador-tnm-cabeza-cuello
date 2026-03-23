@@ -425,8 +425,28 @@ if st.session_state["pantalla"] == "tnm":
                 if cat == "N":
                     tipos = unique_list(df_cat["Tipo"].tolist())
                     if tipos:
-                        tipo = st.radio("Tipo de evaluación:", tipos, horizontal=True, key="tipo_N")
-                        df_cat = df_cat[df_cat["Tipo"] == tipo]
+                        # Valor actual (o por defecto)
+                        tipo_actual = st.session_state.get("tipo_N", tipos[0])
+
+                        # Detectar cambio
+                        tipo_prev = st.session_state.get("tipo_N_prev")
+                        if tipo_prev is not None and tipo_prev != tipo_actual:
+                            # Borrar checkboxes/subitems de N
+                            if f"estado_tnm_N" in st.session_state:
+                                del st.session_state["estado_tnm_N"]
+                            for key in list(st.session_state.keys()):
+                                if key.startswith("subitems_sel_N") or key.startswith("subitems_guardados_N"):
+                                    del st.session_state[key]
+
+                        # Guardar el tipo actual en session_state
+                        tipo_actual = st.radio("Tipo de evaluación:", tipos, horizontal=True, index=tipos.index(tipo_actual), key="tipo_N")
+
+                        # Guardar prev y sel para la próxima renderización
+                        st.session_state["tipo_N_prev"] = tipo_actual
+                        st.session_state["tipo_N_sel"] = tipo_actual
+
+                        # Filtrar df por tipo
+                        df_cat = df_cat[df_cat["Tipo"] == tipo_actual]
 
                 df_cat = df_cat.reset_index(drop=True)
 
