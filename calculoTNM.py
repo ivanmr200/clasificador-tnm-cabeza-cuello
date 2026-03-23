@@ -203,9 +203,12 @@ if st.session_state["pantalla"] == "tnm":
         if "nasofaringe" in tumor_nombre.lower():
             st.markdown("#### Estado viral")
             estado_viral = st.radio("Seleccione estado:", ["VEB+", "VEB-"], horizontal=True, key="estado_viral_radio")
-        elif "orofaringe" in tumor_nombre.lower() and ("p16+" in tumor_nombre.lower() or "p16-" in tumor_nombre.lower()):
+        elif "orofaringe" in tumor_nombre.lower() and ("p16+" in tumor_nombre.lower()):
             st.markdown("#### Biomarcador")
             estado_viral = st.radio("Seleccione estado:", ["VPH+", "VPH-"], horizontal=True, key="estado_viral_radio")
+        elif "orofaringe" in tumor_nombre.lower() and ("p16-" in tumor_nombre.lower()):
+            st.markdown("#### Biomarcador")
+            estado_viral = st.radio("Seleccione estado:", ["VPH-", "VPH+"], horizontal=True, key="estado_viral_radio")
         if estado_viral:
             st.session_state["estado_viral"] = estado_viral
 
