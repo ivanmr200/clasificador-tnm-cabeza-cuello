@@ -362,8 +362,30 @@ if st.session_state["pantalla"] == "tnm":
                     localizaciones = unique_list(df_cat["Localizacion"].tolist())
                     if localizaciones:
                         loc = st.selectbox("Localización tumoral:", localizaciones, key="localizacion_T")
-                        df_cat = df_cat[df_cat["Localizacion"] == loc]
+
+                        # Detectar cambio de localización
+                        loc_prev = st.session_state.get("localizacion_T_prev")
+                        if loc_prev is not None and loc_prev != loc:
+                            # Resetear selección de T
+                            estado_key = "estado_tnm_T"
+                            if estado_key in st.session_state:
+                                del st.session_state[estado_key]
+
+                            # Resetear subitems también 
+                            for key in list(st.session_state.keys()):
+                                if key.startswith("subitems_sel_T") or key.startswith("subitems_guardados_T"):
+                                    del st.session_state[key]
+
+                            st.session_state["localizacion_T_sel"] = None
+                            st.session_state["localizacion_T_prev"] = loc
+
+                            st.rerun()
+
+                        # Guardar localización actual
+                        st.session_state["localizacion_T_prev"] = loc
                         st.session_state["localizacion_T_sel"] = loc
+
+                        df_cat = df_cat[df_cat["Localizacion"] == loc]
 
                 # Tipo (solo N)
                 if cat == "N":
